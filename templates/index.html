@@ -10,13 +10,12 @@
     {% if user %}
         <p>User ID: {{ user.id }}</p>
         <p>User Name: {{ user.name }}</p>
-        {% if course %}
-            <h2>Course: {{ course.name }}</h2>
-            <ul>
-                {% for grade in grades %}
-                    <li>{{ grade.assignment_name }}: {{ grade.score }} / {{ grade.max_score }}</li>
-                {% endfor %}
-            </ul>
+        <p>Current Streak: {{ streak_count }} days</p>
+        {% if course_grades %}
+            {% for course_grade in course_grades %}
+                <h2>Course: {{ course_grade.course.name }}</h2>
+                <p>Final Grade: {{ course_grade.final_grade }}%</p>
+            {% endfor %}
         {% elif error %}
             <p>Error: {{ error }}</p>
         {% else %}
