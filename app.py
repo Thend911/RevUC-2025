@@ -104,19 +104,19 @@ def index():
                     cursor.execute('INSERT INTO user_streaks (user_id, last_active, streak_count) VALUES (?, ?, ?)', (user.id, now, streak_count))
                 connection.commit()
 
-                return render_template('index.html', user=user, course_grades=course_grades, streak_count=streak_count)
+                return render_template('homepage.html', user=user, course_grades=course_grades, streak_count=streak_count)
             else:
-                return render_template('index.html', user=user, error="No active courses found.")
+                return render_template('homepage.html', user=user, error="No active courses found.")
         except Exception as e:
             print(f"An error occurred: {e}")
-            return render_template('index.html', error=str(e))
+            return render_template('homepage.html', error=str(e))
     else:
         return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        access_token = request.form['access_token']
+        access_token = request.form['access_code']
         session['access_token'] = access_token
         return redirect(url_for('index'))
     return render_template('login.html')
