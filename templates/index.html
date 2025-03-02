@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grades</title>
+</head>
+<body>
+    <h1>Student Grades</h1>
+    {% if user %}
+        <p>User ID: {{ user.id }}</p>
+        <p>User Name: {{ user.name }}</p>
+        {% if course %}
+            <h2>Course: {{ course.name }}</h2>
+            <ul>
+                {% for grade in grades %}
+                    <li>{{ grade.assignment_name }}: {{ grade.score }} / {{ grade.max_score }}</li>
+                {% endfor %}
+            </ul>
+        {% elif error %}
+            <p>Error: {{ error }}</p>
+        {% else %}
+            <p>No course information available.</p>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <p>No user information available.</p>
+    {% endif %}
+</body>
+</html>
